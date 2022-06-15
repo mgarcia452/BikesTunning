@@ -1,0 +1,32 @@
+body{
+    background-color: rgba(228, 110, 0, 0.911);
+    background-image: url(../assets/Aprilia-RS-660-Trofeo-3-scaled.jpg);
+    background-size: cover;
+    color: white;
+    font-size: 20px;
+}
+h1 {
+    text-align: center;
+    font-weight: 600;
+    font-size: 3rem;
+    text-transform: uppercase;
+    color: rgb(255, 167, 4);
+    background-color: rgba(0, 0, 0, 0.527);
+    border-bottom: 2px dashed gray;
+    margin: auto;
+    width: 100%;
+}
+.btn-agregar {
+    height: 40px;
+    width: 200px;
+    font-size: 20px;
+    border-radius: 10px;
+    background-color: aliceblue;
+    border-color: black;
+}
+
+.btn-agregar:hover {
+    background-color: orange;
+}
+
+
