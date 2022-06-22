@@ -29,6 +29,7 @@ const agregarTodos = () => {
     accesoriesHTML.innerHTML += newHTMLCode;
 }
 
+// USO EL CLICK DEL SUBMIT PARA CARGAR TODOS LOS ELEMENTOS AL ARRAY PRINCIPAL
 let boton = document.getElementById("btn-agregar");
 boton.addEventListener("submit", () => {
     agregarTodos();
@@ -42,12 +43,8 @@ document.getElementById("btn-part").addEventListener("click", (e) => {
 
 function searchPart() {
     let accesory = (document.getElementById("tipoAcc").value).toLowerCase();
-
-    // SPREAD OPERATOR, SACADO DE SAN GOOGLE PARA COPIAR EL ARRAY SIN MODIFICAR EL ORIGINAL
     let accArray = [...accesories];
-    // el = elemento
     const result = accArray.filter((el) => el.type === accesory);
-    // ACOTE LA BUSQUEDA A "POR TIPO" POR AHORA
     const accesoryHTML = document.querySelector(".accesory");
     for (let i = 0; i < result.length; i++) {
         let newHTMLCode = `
