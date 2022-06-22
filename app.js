@@ -1,26 +1,26 @@
 // ---------- WELCOME ---------- //
-function welcome() {
-    alert("Welcome to the bike builder");
-    const user = prompt("What's your name?");
-    validateUser(user);
-    return user;
-}
+// function welcome() {
+//     alert("Welcome to the bike builder");
+//     const user = prompt("What's your name?");
+//     validateUser(user);
+//     return user;
+// }
 
-function validateUser(user) {
-    // valido q el usuario no este vacio
-    if (user !== '') {
-        alert(`Hi ${user}, We're gonna help you building up your bike`);
-        alert(`Press the 'Load Parts' button and our catalogue will be uploaded`)
-    }
-}
-welcome();
+// function validateUser(user) {
+//     // valido q el usuario no este vacio
+//     if (user !== '') {
+//         alert(`Hi ${user}, We're gonna help you building up your bike`);
+//         alert(`Press the 'Load Parts' button and our catalogue will be uploaded`)
+//     }
+// }
+// welcome();
 
 // ---------- ACCESORIES ---------- //
 
 const accesories = [];
 class SparePart {
     constructor(type, part, hp, consumption, price) {
-        this.type = type
+        this.type = type;
         this.part = part;
         this.hp = hp;
         this.consumption = consumption;
@@ -75,5 +75,5 @@ function searchPart() {
             <td class="price">${result[i].price}</td> 
         </tr>`;
         accesoryHTML.innerHTML += newHTMLCode;
-    }
+    }   
 }

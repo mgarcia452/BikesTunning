@@ -29,4 +29,15 @@ h1 {
     background-color: orange;
 }
 
+.agregados {
+    text-align: center;
+}
 
+p {
+    text-align: center;
+}
+
+.form {
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.527);
+}
