@@ -1,59 +1,188 @@
-// ---------- ACCESORIES ---------- //
+const productosContainer = document.querySelector('#item-container');
+const cartContainer = document.querySelector('#cart-container');
+const contadorCarrito = document.querySelector('#contador-carrito');
+const precioTotal = document.querySelector('#estimated-total');
+const potenciaTotal = document.querySelector('#power-up');
+const botonVaciar = document.getElementById('emptyCart');
+const clearInitialPower = document.querySelector('#clear-power');
+const btnLoad = document.getElementById('load-parts');
+let userPower
 
-const accesories = [];
-class SparePart {
-    constructor(type, part, hp, consumption, price) {
+//-------------------------------------------------------//
+
+// CONSTRUCTOR DEL ARRAY DE STOCK
+class Part {
+    constructor(id, type, part, hp, price, img) {
+        this.id = id;
         this.type = type;
         this.part = part;
         this.hp = hp;
-        this.consumption = consumption;
         this.price = price;
+        this.img = img;
     }
 }
+let stockAccesories = [];
 
-const agregarTodos = () => {
-    accesories.push(new SparePart("intake", "filter", 1.02, 0.98, 600));
-    accesories.push(new SparePart("intake", "cai", 1.05, 0.95, 800));
+const potenciaUsuario = document.querySelector("#potencia-usuario");
+//Modal Welcome
+const modalContWelcome = document.querySelector('#modal-container-welcome');
+const closeModal = document.querySelector('#close-modal');
+closeModal.addEventListener('click', () => {
+    const hp = document.getElementById('initialHp').value;
+    (hp !== 'enter your hp') ? modalContWelcome.classList.remove('modal-container-welcome--visible')
+        : swal('you must set you initial power', 'but you can not leave the fields in blank', 'warning');
+    localStorage.setItem("power", hp);
+    const userPowerLS = localStorage.getItem("power");
+    potenciaUsuario.innerText = `your initial power is ${userPowerLS}hp, by choosing accesories from our web, you'll be able to increase power output`;
+})
 
-    accesories.push(new SparePart("exhaust", "muffler", 1.02, 0.98, 1000));
-    accesories.push(new SparePart("exhaust", "full-system", 1.10, 0.95, 1750));
+// FUNCION PARA BORRAR EL LOCAL STORAGE Y REEMPLAZAR EL VALOR DE POTENCIA
+const clearPower = () => {
+    localStorage.removeItem("power");
+    let newhps;
+    // userPower = prompt("Set you standard power");
+    swal("Enter new Horse Power:", {
+        content: "input",
+    })
+        .then((hps) => {
+            swal(`New horse power are loaded: ${hps}`);
+            newhps = hps
+            localStorage.setItem("power", newhps);
+            const newPower = localStorage.getItem("power")
+            potenciaUsuario.innerText = ''
+            potenciaUsuario.innerText = `your initial power is ${newPower}hp, by choosing accesories from our web, you'll be able to increase power output`;
+        });
+    // LLAMO A EMPTY CART PARA VACIAR CARRITO Y QUE NO FALLE LA LOGICA DEL CALCULO HP
+    emptyCart();
+}
+clearInitialPower.addEventListener('click', clearPower)
 
-    accesories.push(new SparePart("flash", "lean", 0.97, 0.90, 300));
-    accesories.push(new SparePart("flash", "rich", 1.12, 1.10, 450));
+// INICIO UN ARRAY VACIO PARA CARRITO
+const carrito = [];
+//---------------------------------------------------//
+// FUNCION PARA TRAER LOS PRODUCTOS DEL ARRAY
+function createStock() {
+    let i = 0
+    let t = ""
+    let pa = ""
+    let hp = 0
+    let pr = 0
+    let img = ""
+    fetch('parts.json')
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(pt => {
+                i = pt.id
+                t = pt.type
+                pa = pt.part
+                hp = pt.hp
+                pr = pt.price
+                img = pt.img
+                let accesory = new Part(i, t, pa, hp, pr, img);
+                stockAccesories.push(accesory)
+            });
+        }
+        );
+    if (stockAccesories === []) {
+        reject(new Error("No existe un array"));
+    }
+}
+//---------------------------------------------//
+createStock()
 
-    accesories.push(new SparePart("camshaft", "race", 1.08, 1.10, 300));
-    accesories.push(new SparePart("camshaft", "street", 1.12, 1.18, 500));
+btnLoad.addEventListener('click', () => {
+    if (stockAccesories != []) {
+        // RECORRO EL ARRAY DE PRODUCTOS
+        stockAccesories.forEach((item) => {
+            const div = document.createElement('div');
+            div.classList.add('accesory');
+            div.innerHTML = `
+                    <img src=${item.img} alt="" class="accesory-img">
+                    <h3>${item.type}</h3>
+                    <p class="accesory-hp">${item.part}</p>
+                    <p class="accesory-hp"> + ${item.hp}% hp </p>
+                    <p class="accesory-price">Price-tag: $${item.price}</p>
+                    <button onclick="addPart(${item.id})" class="add">Add to Cart<i class="fas fa-shoppung-cart"></i></button>
+                    `
+            productosContainer.append(div);
+        })
+    }
+})
 
-    const accesoriesHTML = document.querySelector(".agregados");
-    let newHTMLCode = `<h2 style="color:green;">PARTS HAVE BEEN UPLOADED</h2>`;
-    accesoriesHTML.innerHTML += newHTMLCode;
+// DEFINO UNA FUNCION PARA AGREGAR ELEMENTOS AL CARRITO
+const addPart = (id) => {
+    const item = stockAccesories.find((item) => item.id === id)
+    carrito.push(item);
+    renderCarrito();
+    renderCantidad();
+    hpTotal();
+    renderTotal();
 }
 
-// USO EL CLICK DEL SUBMIT PARA CARGAR TODOS LOS ELEMENTOS AL ARRAY PRINCIPAL
-let boton = document.getElementById("btn-agregar");
-boton.addEventListener("submit", () => {
-    agregarTodos();
-});
+// ELIMINAR UN ITEM DEL CARRITO
+const removerDelCarrito = (id) => {
+    const item = carrito.find((producto) => producto.id === id)
+    // OBTENGO EL INDICE PARA USAR SPLICE
+    const indice = carrito.indexOf(item)
+    carrito.splice(indice, 1)
+    renderCarrito();
+    renderCantidad();
+    renderTotal();
+    hpTotal();
+}
 
-document.getElementById("btn-part").addEventListener("click", (e) => {
-    e.preventDefault();
-});
+// VACIAR EL CARRITO ENTERO
+const emptyCart = () => {
+    carrito.length = 0;
+    renderCarrito();
+    renderCantidad();
+    renderTotal();
+    hpTotal();
+}
 
-// ---------- SEARCH PART ---------- //
+botonVaciar.addEventListener('click', emptyCart)
 
-function searchPart() {
-    let accesory = (document.getElementById("tipoAcc").value).toLowerCase();
-    let accArray = [...accesories];
-    const result = accArray.filter((el) => el.type === accesory);
-    const accesoryHTML = document.querySelector(".accesory");
-    for (let i = 0; i < result.length; i++) {
-        let newHTMLCode = `
-	   <tr>
-            <th>${result[i].part}</th>
-            <td class="hp">${result[i].hp}</td>
-            <td class="consumption">${result[i].consumption}</td>
-            <td class="price">${result[i].price}</td> 
-        </tr>`;
-        accesoryHTML.innerHTML += newHTMLCode;
-    }   
+// AGREGO VISUALMENTE LOS ITEMS AL CARRITO
+const renderCarrito = () => {
+    cartContainer.innerHTML = '';
+
+    carrito.forEach((item) => {
+        const div = document.createElement('div');
+        div.classList.add('itemCart')
+        div.innerHTML = `
+                    <p>${item.part}</p>
+                    <p>Precio: $${item.price}</p>
+                    <p>Potencia: ${item.hp}%</p>
+                    <button onclick="removerDelCarrito(${item.id})" class="delete-button"><i class="fas fa-trash-alt"></i></button>
+                `
+        cartContainer.append(div);
+    })
+}
+
+const renderCantidad = () => {
+    contadorCarrito.innerText = carrito.length
+}
+
+const renderTotal = () => {
+    let total = 0;
+    carrito.forEach((item) => {
+        total += item.price;
+    })
+    precioTotal.innerText = total;
+}
+
+const hpTotal = () => {
+    const power = localStorage.getItem("power")
+    let potencia = 0;
+    carrito.forEach((item) => {
+        potencia += item.hp;
+    })
+    potencia = (potencia + 100) / 100;
+    potenciaFinal = power * potencia;
+
+    if (potenciaFinal == power) {
+        potenciaTotal.innerText = 0;
+    } else {
+        potenciaTotal.innerText = Math.round(potenciaFinal);
+    }
 }

@@ -6,45 +6,51 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tunning - Sim</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
-    <link rel="stylesheet " href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css ">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="http://kit.fontawesome.com/df59baf6b8.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="preconnect" href="http:/fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="./css/style.css">
+    <script defer src="modal.js"></script>
+    <!-- <script defer src="stock.js"></script> -->
+    <script defer src="app.js"></script>
 </head>
 
 <body>
-    <h1>Tunning - Sim</h1>
-    <h2 class="agregados"></h2>
-    <p>
-        After loading the catalogue, you'll be able to write down which kind of accesory you want to put on your bike<br>
-        At the end, you're gonna get an estimated consumption, and power output of your bike
-    </p>
-    <button type="submit" id="btn-agregar" class="btn-agregar" value="Enviar"
-        onclick="agregarTodos();">Load Parts</button>
-    <label for="tipoAcc" class="form"> Write an accesory: intake, exhaust, flash, camshaft </label>
-    <input id="tipoAcc" type="text " name="tipoAcc" placeholder="enter an accesory" required>
-    <button type="submit" id="btn-part" class="btn btn-agregar" value="Send" onclick="searchPart();">Search Part</button>
-    <table class="table table-info mt-3">
-        <thead>
-            <tr class="table-primary">
-                <th scope="col">Part</th>
-                <th scope="col">hp</th>
-                <th scope="col">consumption</th>
-                <th scope="col">price</th>
-            </tr>
-        </thead>
-        <tbody class="accesory">
-        </tbody>
-    </table>
-    <div class="total"></div>
-    <footer>
-        <p style="color:#000; font-weight: 600;"> <b>Copyright</b> <b>&copy</b>
-        </p>
-    </footer>
+    <header class="header">
+        <h1 id="title" class="title">bikes tunning</h1>
+        <button id="cart-button"><i class="fas fa-shopping-cart"></i><span id="contador-carrito">0</span></button>
+    </header>
 
-    <script src="app.js"></script>
+    
+    <div id="modal-container-welcome" class="modal-container-welcome modal-container-welcome--visible">
+        <div id="welcomemodal" class="welcomemodal">
+          <label for="initialHp" class="form-label input-modal">Initial hp?</label>
+          <input id="initialHp" type="text " name="initialHp" class="input-modal"  required placeholder="Set your hp" >
+          <button id="close-modal" class="btn btn-outline-info btn-modal">Start powerup Simulator App</button>
+        </div>
+      </div>
+    <div class="info-hp">
+        <h2 id="potencia-usuario"></h2>
+        <button id="clear-power" class="btn btn-danger">CLEAR HP</button>
+    </div>
 
+    <button id="load-parts">Load stock</button>
+
+    <main id="item-container">
+    </main>
+
+    <div class="modal-container">
+        <div class="cart-modal">
+            <h3>CART</h3>
+            <button id="closeCart"><i class="fas fa-times-circle"></i></button>
+            <div id="cart-container">
+            </div>
+            <p class="estimatedTotal">Estimated Total: $<span id="estimated-total">0</span></p>
+            <p class="power">Estimated power Increase: <span id="power-up">0</span>hp</p>
+            <button id="emptyCart" class="clear-all">empty cart</button>
+        </div>
+    </div>
 
 </body>
 

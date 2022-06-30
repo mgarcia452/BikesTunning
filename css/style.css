@@ -1,43 +1,395 @@
-body{
-    background-color: rgba(228, 110, 0, 0.911);
-    background-image: url(../assets/Aprilia-RS-660-Trofeo-3-scaled.jpg);
-    background-size: cover;
+body {
+    background-image: url(../assets/Aprilia-RS-660-Trofeo-3-scaled.jpg); 
+    background-size: contain;
     color: white;
     font-size: 20px;
 }
-h1 {
-    text-align: center;
-    font-weight: 600;
-    font-size: 3rem;
-    text-transform: uppercase;
-    color: rgb(255, 167, 4);
-    background-color: rgba(0, 0, 0, 0.527);
-    border-bottom: 2px dashed gray;
-    margin: auto;
-    width: 100%;
+
+#item-container {
+    max-width: 1200px;
+    margin: 60px auto;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
 }
-.btn-agregar {
-    height: 40px;
-    width: 200px;
+
+.accesory {
+    color: orange;
+    background-color: rgba(0, 0, 0, 0.8);
+    max-width: 25%;
+    padding: 5px;
+    margin-bottom: 20px;
+    box-shadow: 2px 2px 2px 2px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+.accesory-img {
+    max-width: 100%;
+}
+
+#initial-power {
+    font-size: 14px;
+    font-weight: 200;
+}
+
+#potencia-usuario {
+    font-size: 12px;
+}
+
+.info-hp {
+    display: flex;
+    align-items: center;
+    margin-left: 25%;
+    margin-right: 28%;
+    background-color: rgb(0, 0, 0, 0.7);
+}
+/* --------------------------- */
+.clear-button {
+    font-size: 15px;
+    color: rgb(255, 132, 0);
+    background-color: rgb(63, 63, 63, 0.7);
+    border-radius: 5%;
+    padding: 10px 10px;
+    transition: all .3s;
+}
+
+.clear-button:hover {
+    cursor: pointer;
+    color: rgb(0, 0, 0, 0.7);
+    background-color: rgb(255, 132, 0);
+}
+
+.clear-button:focus {
+    outline: none;
+}
+
+#cart-button {
+    border: none;
     font-size: 20px;
-    border-radius: 10px;
-    background-color: aliceblue;
-    border-color: black;
+    color: rgb(255, 132, 0);
+    background-color: rgb(63, 63, 63, 0.7);
+    border-radius: 5%;
+    padding: 10px 20px;
+    transition: all .3s;
 }
 
-.btn-agregar:hover {
-    background-color: orange;
+#cart-button:hover {
+    cursor: pointer;
+    color: rgb(0, 0, 0, 0.7);
+    background-color: rgb(255, 132, 0);
 }
 
-.agregados {
-    text-align: center;
+#cart-button:focus {
+    outline: none;
+}
+
+/* --------------------------- */
+
+.modal-container {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all .5s;
+    opacity: 0;
+    visibility: hidden;
+   
+}
+
+.modal-active {
+    opacity: 1;
+    visibility: visible;
+    color: black;
+    
+}
+
+.modal-active .cart-modal {
+    margin-top: 0;
+}
+
+.cart-modal {
+    position: relative;
+    background-color: rgba(94, 94, 94, 0.425);
+    min-width: 500px;
+    padding: 20px;
+    margin-top: -100%;
+    transition: all .5s;
+    /* z-index: 10000; */
+
+}
+
+
+.cart-modal h3 {
+    color: orange;
+    padding-bottom: 5px;
+}
+
+/* BOTON CARRITO */
+.cart-modal #closeCart {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 20px;
+    color: rgb(225, 65, 65);
+    border: none;
+    background-color: white;
+}
+
+.cart-modal #closeCart:hover {
+    cursor: pointer;
+    color: black;
+    background-color: red;
+    transition: 0.5s;
+    border-radius: 50%;
+}
+
+.cart-modal #closeCart:focus {
+    outline: none;
+}
+
+.cart-modal .estimatedTotal {
+    padding-top: 10px;
+}
+
+/* --------------------- */
+.itemCart {
+    border-left: 5px solid rgb(255, 132, 0);
+    border-bottom-left-radius: 3px;
+    border-top-left-radius: 3px;
+    margin: 5px 0;
+    padding: 5px 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.itemCart:hover {
+    border-left: 5px solid red;
+}
+
+.delete-button {
+    color: rgb(250, 76, 6);
+    background-color: rgb(0, 0, 0);
+    box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.3);
+    border-radius: 10%;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.delete-button:hover {
+    cursor: pointer;
+    color: rgb(0, 0, 0);
+    background-color: rgb(250, 76, 6);
+}
+
+.delete-button:focus {
+    outline: none;
+}
+
+.clear-all {
+    color: rgb(255, 132, 0);
+    background-color: rgb(0, 0, 0);
+    box-shadow: 1px 1px 2px 2px rgba(0, 0, 0, 0.3);
+    border-radius: 10%;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.clear-all:hover {
+    cursor: pointer;
+    color: rgb(0, 0, 0);
+    background-color: rgb(250, 76, 6);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+img {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 10%;
+    box-shadow: 0px 5px 4px 3px rgba(0, 0, 0, 0.3);
+    margin-bottom: 20px;
+    background: linear-gradient(90deg, rgb(250, 76, 6) 30%, rgb(0, 0, 0) 70%);
+}
+
+
+h1 {
+    color: white;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 50px;
 }
 
 p {
-    text-align: center;
+    line-height: 1.5;
 }
 
-.form {
+.add {
+    color: rgb(255, 132, 0);
+    background-color: rgb(63, 63, 63, 0.7);
+    font-size: 15px;
+    padding: 5px;
+    box-shadow: 1px 1px 3px 1px rgba(255, 255, 255, 0.3);
+    text-transform: uppercase;
+    border: none;
+}
+
+.add:hover {
+    cursor: pointer;
+    color: rgb(0, 0, 0, 0.7);
+    background-color: rgb(255, 132, 0);
+    transition: all 0.5s;
+}
+
+.add:focus {
+    outline: none;
+}
+
+.cart-modal {
+    position: relative;
+    background-color: white;
+    min-width: 500px;
+    min-height: auto;
+    padding: 20px;
+    margin-top: -100%;
+    transition: all .5s;
+}
+
+/*--------------------------------------*/
+
+/* Modal */
+.modal-container-welcome{
+background-image: url(./assets/welcomeBg.png);
+background-position: center;
+background-repeat: no-repeat;
+background-size: cover;
+background-attachment: inherit;
+width: 100%;
+min-height: 100vh;
+background-color: #000;
+position: fixed;
+top: 0;
+left: 0;
+display: flex;
+justify-content: center;
+align-items: center;
+opacity: 0;
+visibility: hidden;
+transition: .3s all ease-in;
+}
+
+.modal-container-welcome--visible{
+opacity: 1;
+visibility: visible;
+}
+.welcomemodal {
+margin: 0 auto;
+background: url(../assets/Aprilia-RS-660-Trofeo-3-scaled.jpg);
+background-position: center;
+background-clip: unset;
+background-size: cover;
+background-repeat: no-repeat;
+background-attachment: inherit;
+width: 350px;
+height: 350px;
+border-radius: 50%;
+color: rgb(0, 81, 202);
+text-shadow: #f0f0f2;
+font-weight: bold;
+letter-spacing: .15rem;
+padding: 10px;
+}
+.input-modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 15px;
+    width: auto;
+    margin: 0 auto;
+    margin-top: 30px; 
+}
+.btn-modal {
+    margin-top: 10px;
+    color: #5fb0cb;
+    width: 200px;
+}
+
+
+.close-modal {
+    font-weight: bolder;
+    background: rgb(6, 153, 15);
+    color: #fff;
+    padding: 0.2rem 0.9rem;
+    margin-bottom: 1rem;
+    border-radius: 50%;
+  }
+
+#load-parts {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(255, 132, 0);
+    border-radius: 100px;
+    cursor: pointer;
+    padding: 7px 20px;
     text-align: center;
-    background-color: rgba(0, 0, 0, 0.527);
+    text-decoration: none;
+    border: 0;
+    width: 200px;
+    font-size: 20px;
+    font-weight: 600;
+    user-select: none;
+    margin: 0 auto;
+    touch-action: manipulation;
+}
+#clear-power {
+    border: none;
+    font-size: 10px;
+    color: rgb(255, 132, 0);
+    background-color: rgb(63, 63, 63, 0.7);
+    border-radius: 5%;
+    padding: 10px 20px;
+    transition: all .3s;
+}
+
+#clear-power:hover {
+    cursor: pointer;
+    background-color: rgb(255, 132, 0);
+    color: rgb(63, 63, 63, 0.7);
+}
+
+.btn-modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: rgb(255, 132, 0);
+    border-radius: 100px;
+    cursor: pointer;
+    padding: 7px 20px;
+    text-align: center;
+    text-decoration: none;
+    border: 0;
+    width: 200px;
+    font-weight: 600;
+    user-select: none;
+    margin: 0 auto;
+    touch-action: manipulation;
 }
