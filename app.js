@@ -6,7 +6,6 @@ const potenciaTotal = document.querySelector('#power-up');
 const botonVaciar = document.getElementById('emptyCart');
 const clearInitialPower = document.querySelector('#clear-power');
 const btnLoad = document.getElementById('load-parts');
-let userPower
 
 //-------------------------------------------------------//
 
@@ -24,23 +23,22 @@ class Part {
 let stockAccesories = [];
 
 const potenciaUsuario = document.querySelector("#potencia-usuario");
+const closeModal = document.querySelector('#close-modal');
 //Modal Welcome
 const modalContWelcome = document.querySelector('#modal-container-welcome');
-const closeModal = document.querySelector('#close-modal');
 closeModal.addEventListener('click', () => {
     const hp = document.getElementById('initialHp').value;
-    (hp !== 'enter your hp') ? modalContWelcome.classList.remove('modal-container-welcome--visible')
-        : swal('you must set you initial power', 'but you can not leave the fields in blank', 'warning');
+    (hp !== 'Set your hp') ? modalContWelcome.classList.remove('modal-container-welcome--visible')
+    :swal('you must set your standard power', 'you can not leave the fields in blank', 'warning');
     localStorage.setItem("power", hp);
     const userPowerLS = localStorage.getItem("power");
-    potenciaUsuario.innerText = `your initial power is ${userPowerLS}hp, by choosing accesories from our web, you'll be able to increase power output`;
+    potenciaUsuario.innerText = `your standard power is ${userPowerLS} hp, choose stuff from our web, and you will increase your power output`;
 })
 
 // FUNCION PARA BORRAR EL LOCAL STORAGE Y REEMPLAZAR EL VALOR DE POTENCIA
 const clearPower = () => {
     localStorage.removeItem("power");
     let newhps;
-    // userPower = prompt("Set you standard power");
     swal("Enter new Horse Power:", {
         content: "input",
     })
@@ -50,7 +48,7 @@ const clearPower = () => {
             localStorage.setItem("power", newhps);
             const newPower = localStorage.getItem("power")
             potenciaUsuario.innerText = ''
-            potenciaUsuario.innerText = `your initial power is ${newPower}hp, by choosing accesories from our web, you'll be able to increase power output`;
+            potenciaUsuario.innerText = `your standard power is ${newPower} hp, select stuff from our web, and you will increase your power output`;
         });
     // LLAMO A EMPTY CART PARA VACIAR CARRITO Y QUE NO FALLE LA LOGICA DEL CALCULO HP
     emptyCart();
@@ -102,14 +100,14 @@ btnLoad.addEventListener('click', () => {
                     <p class="accesory-hp">${item.part}</p>
                     <p class="accesory-hp"> + ${item.hp}% hp </p>
                     <p class="accesory-price">Price-tag: $${item.price}</p>
-                    <button onclick="addPart(${item.id})" class="add">Add to Cart<i class="fas fa-shoppung-cart"></i></button>
+                    <button onclick="addPart(${item.id})" class="add">Add<i class="fas fa-shoppung-cart"></i></button>
                     `
             productosContainer.append(div);
         })
     }
 })
 
-// DEFINO UNA FUNCION PARA AGREGAR ELEMENTOS AL CARRITO
+// DEFINO PARA AGREGAR ELEMENTOS AL CARRITO
 const addPart = (id) => {
     const item = stockAccesories.find((item) => item.id === id)
     carrito.push(item);
@@ -122,7 +120,6 @@ const addPart = (id) => {
 // ELIMINAR UN ITEM DEL CARRITO
 const removerDelCarrito = (id) => {
     const item = carrito.find((producto) => producto.id === id)
-    // OBTENGO EL INDICE PARA USAR SPLICE
     const indice = carrito.indexOf(item)
     carrito.splice(indice, 1)
     renderCarrito();
@@ -179,10 +176,5 @@ const hpTotal = () => {
     })
     potencia = (potencia + 100) / 100;
     potenciaFinal = power * potencia;
-
-    if (potenciaFinal == power) {
-        potenciaTotal.innerText = 0;
-    } else {
-        potenciaTotal.innerText = Math.round(potenciaFinal);
-    }
+    potenciaFinal == power ? potenciaTotal.innerText = 0 : potenciaTotal.innerText = Math.round(potenciaFinal);
 }

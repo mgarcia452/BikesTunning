@@ -13,5 +13,6 @@ let stockAccesories = [
     { id: 12, type: "polish", part: "port", hp: 03, price: 700, img: './assets/parts/port.jpg' },
     { id: 13, type: "polish", part: "head", hp: 05, price: 1000, img: './assets/parts/head.jpg' },
     { id: 14, type: "turbo", part: "stage1", hp: 25, price: 8000, img: './assets/parts/turbo-st1.jpg' },
-    { id: 15, type: "turbo", part: "stage2", hp: 38, price: 14000, img: './assets/parts/turbo-st2.jpg' }
+    { id: 15, type: "turbo", part: "stage2", hp: 38, price: 14000, img: './assets/parts/turbo-st2.jpg' },
+    { id: 16, type: "crankshaft", part: "crankshaft", hp: 8, price: 6500, img: './assets/parts/crankshaft.jpg' }
 ]

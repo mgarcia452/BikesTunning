@@ -118,5 +118,13 @@
         "hp": 38,
         "price": 14000,
         "img": "./assets/parts/turbo-st2.jpg"
+    },
+    {
+        "id": 16,
+        "type": "crankshaft",
+        "part": "crankshaft",
+        "hp": 8,
+        "price": 6500,
+        "img": "./assets/parts/crankshaft.jpg"
     }
 ]

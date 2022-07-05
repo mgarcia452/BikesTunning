@@ -7,12 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tunning - Sim</title>
     <script src="http://kit.fontawesome.com/df59baf6b8.js" crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
     <link rel="preconnect" href="http:/fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="./css/style.css">
     <script defer src="modal.js"></script>
-    <!-- <script defer src="stock.js"></script> -->
     <script defer src="app.js"></script>
 </head>
 
@@ -22,20 +21,23 @@
         <button id="cart-button"><i class="fas fa-shopping-cart"></i><span id="contador-carrito">0</span></button>
     </header>
 
-    
+
     <div id="modal-container-welcome" class="modal-container-welcome modal-container-welcome--visible">
         <div id="welcomemodal" class="welcomemodal">
-          <label for="initialHp" class="form-label input-modal">Initial hp?</label>
-          <input id="initialHp" type="text " name="initialHp" class="input-modal"  required placeholder="Set your hp" >
-          <button id="close-modal" class="btn btn-outline-info btn-modal">Start powerup Simulator App</button>
+            <label for="initialHp" class="form-label input-modal">Standard hp?</label>
+            <input id="initialHp" type="text " name="initialHp" class="input-modal" required value="Set your hp">
+            <button id="close-modal" class="btn btn-outline-info btn-modal">Power-up Simulator App</button>
         </div>
-      </div>
-    <div class="info-hp">
-        <h2 id="potencia-usuario"></h2>
-        <button id="clear-power" class="btn btn-danger">CLEAR HP</button>
     </div>
 
-    <button id="load-parts">Load stock</button>
+    <div class="statements">
+        <div class="info-hp">
+            <h2 id="potencia-usuario"></h2>
+            <button id="clear-power" class="btn btn-danger">CLEAR HP</button>
+        </div>
+
+        <button id="load-parts">Load stock</button>
+    </div>
 
     <main id="item-container">
     </main>
@@ -48,10 +50,10 @@
             </div>
             <p class="estimatedTotal">Estimated Total: $<span id="estimated-total">0</span></p>
             <p class="power">Estimated power Increase: <span id="power-up">0</span>hp</p>
-            <button id="emptyCart" class="clear-all">empty cart</button>
+            <button id="emptyCart" class="clear-all">CLEAR</button>
         </div>
     </div>
-
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </body>
 
 </html>
