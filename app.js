@@ -29,7 +29,7 @@ const modalContWelcome = document.querySelector('#modal-container-welcome');
 closeModal.addEventListener('click', () => {
     const hp = document.getElementById('initialHp').value;
     (hp !== 'Set your hp') ? modalContWelcome.classList.remove('modal-container-welcome--visible')
-    :swal('you must set your standard power', 'you can not leave the fields in blank', 'warning');
+        : swal('you must set your standard power', 'you can not leave the fields in blank', 'warning');
     localStorage.setItem("power", hp);
     const userPowerLS = localStorage.getItem("power");
     potenciaUsuario.innerText = `your standard power is ${userPowerLS} hp, choose stuff from our web, and you will increase your power output`;
@@ -66,30 +66,34 @@ function createStock() {
     let hp = 0
     let pr = 0
     let img = ""
+
+    
     fetch('parts.json')
-        .then(response => response.json())
-        .then(data => {
-            data.forEach(pt => {
-                i = pt.id
-                t = pt.type
-                pa = pt.part
-                hp = pt.hp
-                pr = pt.price
-                img = pt.img
-                let accesory = new Part(i, t, pa, hp, pr, img);
-                stockAccesories.push(accesory)
-            });
-        }
-        );
+    .then(response => response.json())
+    .then(data => {
+        data.forEach(pt => {
+            i = pt.id
+            t = pt.type
+            pa = pt.part
+            hp = pt.hp
+            pr = pt.price
+            img = pt.img
+            let accesory = new Part(i, t, pa, hp, pr, img);
+            stockAccesories.push(accesory)
+        });
+    }
+    );
     if (stockAccesories === []) {
         reject(new Error("No existe un array"));
     }
 }
 //---------------------------------------------//
-createStock()
+
+    createStock()
+
 
 btnLoad.addEventListener('click', () => {
-    if (stockAccesories != []) {
+    if (stockAccesories != [] ) {
         // RECORRO EL ARRAY DE PRODUCTOS
         stockAccesories.forEach((item) => {
             const div = document.createElement('div');
@@ -104,6 +108,7 @@ btnLoad.addEventListener('click', () => {
                     `
             productosContainer.append(div);
         })
+        btnLoad.disabled = true;
     }
 })
 
@@ -115,7 +120,17 @@ const addPart = (id) => {
     renderCantidad();
     hpTotal();
     renderTotal();
+    Toastify({
+        text: "Producto agregado",
+        duration: 1300,
+        stopOnFocus: true,
+        style: {
+            background: "linear-gradient(to right, #FF5B0E, #717171)",
+        },
+        onClick: function () { }
+    }).showToast();
 }
+
 
 // ELIMINAR UN ITEM DEL CARRITO
 const removerDelCarrito = (id) => {

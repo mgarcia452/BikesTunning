@@ -1,5 +1,6 @@
 body {
     background-image: url(../assets/Aprilia-RS-660-Trofeo-3-scaled.jpg);
+    background-size:contain;
     color: white;
     font-size: 20px;
 }
