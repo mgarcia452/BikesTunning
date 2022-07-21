@@ -66,34 +66,32 @@ function createStock() {
     let hp = 0
     let pr = 0
     let img = ""
-
-    
     fetch('parts.json')
-    .then(response => response.json())
-    .then(data => {
-        data.forEach(pt => {
-            i = pt.id
-            t = pt.type
-            pa = pt.part
-            hp = pt.hp
-            pr = pt.price
-            img = pt.img
-            let accesory = new Part(i, t, pa, hp, pr, img);
-            stockAccesories.push(accesory)
-        });
-    }
-    );
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(pt => {
+                i = pt.id
+                t = pt.type
+                pa = pt.part
+                hp = pt.hp
+                pr = pt.price
+                img = pt.img
+                let accesory = new Part(i, t, pa, hp, pr, img);
+                stockAccesories.push(accesory)
+            });
+        }
+        );
     if (stockAccesories === []) {
         reject(new Error("No existe un array"));
     }
 }
 //---------------------------------------------//
 
-    createStock()
+createStock()
 
 
 btnLoad.addEventListener('click', () => {
-    if (stockAccesories != [] ) {
+    if (stockAccesories != []) {
         // RECORRO EL ARRAY DE PRODUCTOS
         stockAccesories.forEach((item) => {
             const div = document.createElement('div');
@@ -101,9 +99,9 @@ btnLoad.addEventListener('click', () => {
             div.innerHTML = `
                     <img src=${item.img} alt="" class="accesory-img">
                     <h3>${item.type}</h3>
-                    <p class="accesory-hp">${item.part}</p>
-                    <p class="accesory-hp"> + ${item.hp}% hp </p>
-                    <p class="accesory-price">Price-tag: $${item.price}</p>
+                    <p class="accesory-item">${item.part}</p>
+                    <p class="accesory-item"> + ${item.hp}% hp </p>
+                    <p class="accesory-item">Price-tag: $${item.price}</p>
                     <button onclick="addPart(${item.id})" class="add">Add<i class="fas fa-shoppung-cart"></i></button>
                     `
             productosContainer.append(div);
@@ -125,7 +123,7 @@ const addPart = (id) => {
         duration: 1300,
         stopOnFocus: true,
         style: {
-            background: "linear-gradient(to right, #FF5B0E, #717171)",
+            background: "linear-gradient(to right, #052B76, #717171)",
         },
         onClick: function () { }
     }).showToast();
